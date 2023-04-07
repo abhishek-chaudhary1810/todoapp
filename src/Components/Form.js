@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 //Below Function is add to handle events while adding
 export default function Form(props) {
-  const [name, setName] = useState(""); // Initializing and defining Hooks
- //Reading and Logging Changing User Inputs
+  const [name, setName] = useState(""); // Initializing and defining use state Hooks
+  //Reading and Logging Changing User Inputs
   function handleChange(e) {
     const { value } = e.target;
-    setName(value);  
+    setName(value);
   }
-//Submitting data and resetting setName or state
-  function handleSubmit(e){
+  //Submitting data and resetting setName or state
+  function handleSubmit(e) {
     e.preventDefault();
-  
+
     props.addTask(name);
     setName(""); //Setting setname again to empty string
   }
