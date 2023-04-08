@@ -7,11 +7,20 @@ import { nanoid } from "nanoid";
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
   //created function to fix check and unchecked issue
- function deleteTask(id) {
-  const deletedTasks=tasks.filter((task)=>id !==task.id)
-setTasks(deletedTasks);
- }
-
+  function deleteTask(id) {
+    const deletedTasks = tasks.filter((task) => id !== task.id);
+    setTasks(deletedTasks);
+  }
+  //function created to edit a task
+  function editTask(id, newName) {
+    const editedTaskList = tasks.map((task) => {
+      if (id === task.id) {
+        return { ...tasks, name: newName };
+      }
+      return task;
+    });
+    setTasks(editedTaskList);
+  }
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
       //if this task has the same ID as the edited task
@@ -32,6 +41,7 @@ setTasks(deletedTasks);
       key={task.id}
       toggleTaskCompleted={toggleTaskCompleted}
       deleteTask={deleteTask}
+      editTask={editTask}
     />
   )); //conversion of array of object to map
   function addTask(name) {
