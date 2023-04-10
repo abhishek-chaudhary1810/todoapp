@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 export default function Todo(props) {
-  const [isEditing, setEditing] = useState(false);
- const [newName,setNewName]=useState('');
+const [isEditing, setEditing] = useState(false);
+const [newName,setNewName]=useState('');
+ 
  function handleChange(e){
   setNewName(e.target.value);
  }
+ //function to handle edited task submit
  function handleSubmit(e){
   e.preventDefault();
   props.editTask(props.id, newName);
   setNewName("");
   setEditing(false);
  }
+ //made 2 template that will be switched as per user interaction 1 is for editing a task second is for viewing
   const editingTemplate = (
+    //Binding handlesubmit to form tag
     <form className="stack-small" onSubmit={handleSubmit}>
       <div className="form-group">
         <label className="todo-label" htmlFor={props.id}>
@@ -58,7 +62,8 @@ export default function Todo(props) {
       </div>
     </div>
   );
-
+//Rendered my UI as per conditions , view temmplate is set by default and editing template is used to edit a task
+//Used ternary operator by checking value of isEditing
   return (
     <li className="todo stack-small">
       {isEditing ? editingTemplate : viewTemplate}

@@ -189,7 +189,7 @@ body {
 }
 [class*="__lg"] {
   display: inline-block;
-  width: 100%;
+  width: 94%;
   font-size: 1.9rem;
 }
 [class*="__lg"]:not(:last-child) {
