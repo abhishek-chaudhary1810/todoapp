@@ -33,7 +33,8 @@ function App(props) {
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
       //if this task has the same ID as the edited task
-      if (id === task.id) {
+      console.log(id);  
+      if (id === task.id) { 
         // use object spread to make a new object
         //whose completed prop has been inverted
         return { ...tasks, completed: !task.completed };
@@ -42,7 +43,10 @@ function App(props) {
     });
     setTasks(updatedTasks);
   }
-  const tasklist = tasks.map((task) => (
+  const [filter, setfilter] = useState("All");
+  const tasklist = tasks.
+  filter(FILTER_MAP[filter])
+  .map((task) => (
     <Todo
       id={task.id}
       name={task.name}
@@ -53,17 +57,19 @@ function App(props) {
       editTask={editTask}
     />
   )); //conversion of array of object to map
-  const [filter, setFilter] = useState("All");
+  
   const filterList = FILTER_NAMES.map((name) => (
     <Filterbutton
       key={name}
       name={name}
       isPressed={name === filter}
-      setFilter={setFilter}
+      setfilter={setfilter}
     />
   ));
   function addTask(name) {
-    const newTask = { id: nanoid(), name, completed: false }; //object created as new task will be added,used nanoid for unique id generation
+    const prefix='Task_';
+    const newTask = { id: prefix+nanoid(), name, completed: false }; //object created as new task will be added,used nanoid for unique id generation
+    console.log(newTask.id);
     setTasks([...tasks, newTask]); // old array of objects in tasks and added new Task as an Object on top of that
   }
   const taskNoun = tasklist.length !== 1 ? "tasks" : "task"; //task and tasks are different so we have to add accordingly
@@ -73,8 +79,6 @@ function App(props) {
       <h1>My To Do List</h1>
       <Form addTask={addTask} />
       <h2 id="list-heading">{headingText}</h2>
-      {filterList}
-      {filterList}
       {filterList}
       <ul
         role="list"
